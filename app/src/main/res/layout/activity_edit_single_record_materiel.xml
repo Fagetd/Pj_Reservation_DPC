@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_single_record_materiel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.dimit.pj_reservation_dpc.EditSingleRecordMaterielActivity">
+
+
+    <TextView
+        android:id="@+id/textViewTITRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonRetour"
+        android:layout_centerHorizontal="true"
+        android:text="Modifier le matériel"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/EditTextLibelle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/buttonUpdate"
+        android:layout_marginTop="126dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Nom"
+        android:inputType="textPersonName"
+        android:textAlignment="viewStart" />
+
+    <EditText
+        android:id="@+id/EditTextQte"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/EditTextLibelle"
+        android:layout_below="@+id/EditTextLibelle"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Quantité"
+        android:inputType="number"
+        android:textAlignment="viewStart" />
+
+
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/EditTextLibelle"
+        android:layout_alignBottom="@+id/EditTextLibelle"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/buttonUpdate"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="Nom:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/EditTextQte"
+        android:layout_alignBottom="@+id/EditTextQte"
+        android:layout_alignStart="@+id/textView1"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="text"
+        android:text="Quantité:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditTextQte"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Modifier" />
+
+    <Button
+        android:id="@+id/buttonRetour"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/rouge"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Retour"
+        android:textColor="@android:color/white"
+        />
+
+    <ImageView
+        android:id="@+id/iv_logodpc"
+        android:layout_width="139dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:background="@drawable/logo_dpc" />
+</RelativeLayout>

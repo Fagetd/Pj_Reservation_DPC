@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "24959001680",
+    "firebase_url": "https://single-crowbar-194309.firebaseio.com",
+    "project_id": "single-crowbar-194309",
+    "storage_bucket": "single-crowbar-194309.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24959001680:android:cd5fc7e02b222d61",
+        "android_client_info": {
+          "package_name": "com.example.dimit.pj_reservation_dpc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24959001680-u7cobi9vhs98pfh96btnkh1dc0uumojg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "24959001680-lh39golbaa4ablvivq3p697al7to4un3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dimit.pj_reservation_dpc",
+            "certificate_hash": "12ab821ddcabddb0ed855899f509b069a2303db4"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOI7Zq4i0YI2bvDTujsNhbUYLL8U76ayw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24959001680-u7cobi9vhs98pfh96btnkh1dc0uumojg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

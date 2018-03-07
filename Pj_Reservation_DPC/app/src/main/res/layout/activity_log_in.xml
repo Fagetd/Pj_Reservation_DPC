@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.dimit.pj_reservation_dpc.LoginActivity">
+
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="1264dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="190sp"
+        android:paddingTop="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_fondgris"
+            android:layout_width="792dp"
+            android:layout_height="432dp"
+            android:layout_centerHorizontal="true"
+            android:src="@color/gris"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_login"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/iv_fondgris"
+            android:layout_alignTop="@+id/iv_fondgris"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="152dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.239"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.402">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Login" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_liste_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/input_login"
+            android:layout_alignEnd="@+id/iv_fondgris"
+            android:layout_marginBottom="65dp"
+            android:layout_marginEnd="125dp"
+            android:text="Gerez vos réservations"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_liste_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tv_liste_3"
+            android:layout_alignTop="@+id/input_login"
+            android:layout_marginTop="18dp"
+            android:text="Modifiez l'agencement de votre salle"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_liste_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/iv_fondgris"
+            android:layout_below="@+id/input_login"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="11dp"
+            android:text="Réservez notre matériel de visioconférence"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/bt_inscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tv_liste_1"
+            android:layout_below="@+id/tv_liste_3"
+            android:layout_marginTop="41dp"
+            android:background="@android:color/holo_blue_bright"
+            android:text="Activity login" />
+
+        <ImageView
+            android:id="@+id/iv_pastille_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/iv_pastille_2"
+            android:layout_alignTop="@+id/tv_liste_2"
+            android:src="@android:drawable/presence_online" />
+
+        <ImageView
+            android:id="@+id/iv_pastille_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_liste_1"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/tv_liste_2"
+            android:src="@android:drawable/presence_online" />
+
+        <ImageView
+            android:id="@+id/iv_pastille_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/iv_pastille_1"
+            android:layout_alignTop="@+id/tv_liste_3"
+            android:src="@android:drawable/presence_online" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/iv_pastille_2"
+            android:layout_alignEnd="@+id/input_login"
+            android:layout_marginEnd="89dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.182"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.382" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_connexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Authentification"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.262" />
+
+    <TextView
+        android:id="@+id/tv_inscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Inscrivez-vous"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.262" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_mdp"
+        android:layout_width="358dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="Mot de passe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Mot de passe" />
+    </android.support.design.widget.TextInputLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
