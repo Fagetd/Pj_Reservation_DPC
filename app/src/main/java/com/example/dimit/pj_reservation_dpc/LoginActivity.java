@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_log_in);
-        ed_login = findViewById(R.id.ed_login);
         ed_mdp = findViewById(R.id.ed_password_login);
+        ed_login = findViewById(R.id.ed_login);
         bt_connexion = findViewById(R.id.bt_connexion);
         progressDialog = new ProgressDialog(this);
 
@@ -61,16 +61,17 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
         String email = ed_login.getText().toString().trim();
         String mdp = ed_mdp.getText().toString().trim();
 
-        if (mdp.isEmpty()){
-           ed_mdp.setError("Veuillez rentrer votre mot de passe");
-           ed_mdp.requestFocus();
-            return;
-        }
         if (email.isEmpty()){
             ed_login.setError("Veuillez rentrer votre login");
             ed_login.requestFocus();
             return;
         }
+        if (mdp.isEmpty()){
+           ed_mdp.setError("Veuillez rentrer votre mot de passe");
+           ed_mdp.requestFocus();
+            return;
+        }
+
 
         progressDialog.setMessage("Connexion en cours ...");
         progressDialog.show();

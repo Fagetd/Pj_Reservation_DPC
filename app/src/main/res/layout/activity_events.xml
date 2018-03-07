@@ -40,15 +40,14 @@
                 android:id="@+id/iv_pastille"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="76dp"
                 android:src="@android:drawable/presence_online"
                 android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.832"
+                app:layout_constraintHorizontal_bias="0.826"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.117" />
 
             <TextView
                 android:id="@+id/tv_clear"
@@ -65,10 +64,10 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.522"
+                app:layout_constraintHorizontal_bias="0.019"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.16" />
+                app:layout_constraintVertical_bias="0.134" />
 
             <Button
                 android:id="@+id/insert_event"
@@ -91,7 +90,7 @@
             <EditText
                 android:id="@+id/et_titre"
                 android:layout_width="wrap_content"
-                android:layout_height="49dp"
+                android:layout_height="41dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
@@ -100,13 +99,13 @@
                 android:hint="Titre"
                 android:inputType="textPersonName"
                 android:maxLength="45"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.28"
+                app:layout_constraintHorizontal_bias="0.582"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.306" />
+                app:layout_constraintVertical_bias="0.277" />
 
             <Button
                 android:id="@+id/bt_query_calendar"
@@ -118,7 +117,7 @@
                 android:layout_marginTop="8dp"
                 android:onClick="query_calendar"
                 android:text="Choisir un calendrier"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.274"
@@ -141,10 +140,10 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.156"
+                app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.435" />
+                app:layout_constraintVertical_bias="0.374" />
 
             <TextView
                 android:id="@+id/tv_start_date_time"
@@ -159,13 +158,14 @@
                 android:focusableInTouchMode="false"
                 android:hint="Date du début"
                 android:inputType="textPersonName"
-                android:visibility="invisible"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.263"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.451" />
+                app:layout_constraintVertical_bias="0.387" />
 
             <TextView
                 android:id="@+id/tv_end_date_time"
@@ -180,13 +180,13 @@
                 android:focusableInTouchMode="false"
                 android:hint="Date de fin"
                 android:inputType="textPersonName"
-                android:visibility="invisible"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.572"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.451" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/bt_update_event"
@@ -230,7 +230,7 @@
             <Button
                 android:id="@+id/bt_query_event"
                 android:layout_width="191dp"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
@@ -238,13 +238,13 @@
                 android:elevation="0dp"
                 android:onClick="query_event"
                 android:text="Chercher un event"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintHorizontal_bias="0.275"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.14" />
+                app:layout_constraintVertical_bias="0.115" />
 
             <TextView
                 android:id="@+id/tv_calendar_id"
@@ -260,10 +260,30 @@
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.872"
+                app:layout_constraintHorizontal_bias="0.025"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.32" />
+                app:layout_constraintVertical_bias="0.202" />
+
+            <TextView
+                android:id="@+id/tv_nom_salle"
+                android:layout_width="142dp"
+                android:layout_height="29dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Nom de la salle"
+                android:inputType="textPersonName"
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.608"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.608" />
 
             <Button
                 android:id="@+id/bt_delete_event"
@@ -358,6 +378,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <Button
+                android:id="@+id/btn_display_salles"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Choisir la  salle"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.388"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.612" />
+
 
             <Button
                 android:id="@+id/btn_datePicker"
@@ -368,50 +405,50 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Date Start"
-                android:visibility="invisible"
+                android:text="Date début"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.21"
+                app:layout_constraintHorizontal_bias="0.283"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.554" />
+                app:layout_constraintVertical_bias="0.387" />
 
             <Button
                 android:id="@+id/btn_datePicker2"
-                android:layout_width="wrap_content"
+                android:layout_width="104dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Date End"
-                android:visibility="invisible"
+                android:text="Date fin "
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.536"
+                app:layout_constraintHorizontal_bias="0.286"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.554" />
+                app:layout_constraintVertical_bias="0.499" />
 
             <Button
                 android:id="@+id/btn_timePicker2"
-                android:layout_width="wrap_content"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Time End"
-                android:visibility="invisible"
+                android:text="Heure fin "
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.627"
+                app:layout_constraintHorizontal_bias="0.402"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.554" />
+                app:layout_constraintVertical_bias="0.499" />
 
 
             <Button
@@ -424,14 +461,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Heure Start"
-                android:visibility="invisible"
+                android:text="Heure début"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.316"
+                app:layout_constraintHorizontal_bias="0.403"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.554" />
+                app:layout_constraintVertical_bias="0.387" />
 
             <ImageView
                 android:id="@+id/iv_logodpc"

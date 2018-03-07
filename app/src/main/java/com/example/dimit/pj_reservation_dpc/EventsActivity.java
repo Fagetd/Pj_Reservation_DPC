@@ -17,6 +17,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 
 import static android.provider.CalendarContract.Calendars;
+
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
@@ -67,22 +69,26 @@ import java.util.TimeZone;
 public class EventsActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
     private GoogleApiClient GoogleApiClient;
     public static  final int SIGN_IN_CODE = 777;
-    private Button query_account;
     private static final String TAG = "EventsActivity";
+    String IDholder;
+    SQLiteDatabase sqLiteDatabase;
+    SQLiteHelper sqLiteHelper;
+    Cursor cursor;
+
+
     Calendar dateTime = Calendar.getInstance();
     Calendar endDateTime = Calendar.getInstance();
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
 
 
-    private TextView tv_date,tv_date2;
-
-    private Button btn_time,btn_date,btn_time2,btn_date2,btn_retour;
+    private TextView tv_date,tv_date2,nomsalle;
+    private Button query_account,btn_time,btn_date,btn_time2,btn_date2,btn_retour,btn_display_salles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-
+        sqLiteHelper = new SQLiteHelper(this);
         query_account = findViewById(R.id.bt_query_account);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -91,8 +97,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
-        query_account.setOnClickListener(this);
 
+        nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
         tv_date   = (TextView) findViewById(R.id.tv_start_date_time);
         tv_date2  = (TextView) findViewById(R.id.tv_end_date_time);
         btn_date  = (Button) findViewById(R.id.btn_datePicker);
@@ -100,8 +106,10 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         btn_time  = (Button) findViewById(R.id.btn_timePicker);
         btn_time2 = (Button) findViewById(R.id.btn_timePicker2);
         btn_retour = (Button) findViewById(R.id.btn_retour);
+        btn_display_salles = (Button) findViewById(R.id.btn_display_salles);
 
-
+        // les onClick
+        query_account.setOnClickListener(this);
         btn_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +134,13 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 updateTimeEnd();
             }
         });
+        btn_display_salles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventsActivity.this, DisplaySQLiteEventsActivity.class);
+                startActivity(intent);
+            }
+        });
         btn_retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,8 +152,13 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
         updateTextLabel();
         updateTextLabelEnd();
-    }
 
+    }
+    @Override
+    protected void onResume() {
+        AfficherNomSalle();
+        super.onResume();
+    }
 
     @Override
     public void onClick(View view) {
@@ -149,6 +169,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
+    //changer de la date et l'heure du début et de la fin
     private void updateDate(){
         new DatePickerDialog(this, d, dateTime.get(Calendar.YEAR),dateTime.get(Calendar.MONTH),dateTime.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -161,7 +182,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     private void updateTimeEnd(){
         new TimePickerDialog(this, tend, endDateTime.get(Calendar.HOUR_OF_DAY), endDateTime.get(Calendar.MINUTE), true).show();
     }
-
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -199,17 +219,16 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         }
     };
 
-
-
     private void updateTextLabel(){
         tv_date.setText(formatDateTime.format(dateTime.getTime()));
     }
     private void updateTextLabelEnd(){
-        tv_date2.setText(formatDateTime.format(endDateTime.getTime()));}
+        tv_date2.setText(formatDateTime.format(endDateTime.getTime()));
+    }
 
 
 
-
+    //se connecter avec gmail
     private void signIn(){
         Auth.GoogleSignInApi.signOut(GoogleApiClient);
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(GoogleApiClient);
@@ -337,6 +356,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                             Button btn_datePicker2 = findViewById(R.id.btn_datePicker2);                                                // update time start
                             Button btn_timePicker = findViewById(R.id.btn_timePicker);                                                  // update date end
                             Button btn_timePicker2 = findViewById(R.id.btn_timePicker2);                                                // update time end
+                            Button btn_display_salles= findViewById(R.id.btn_display_salles);                                           // choisir sa salle
+                            TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
 
                             TextView tv_clear = findViewById(R.id.tv_clear);
                             targetCalendarId.setText(String.format("%s", calendarIdList.get(which)));
@@ -347,16 +368,16 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                                 tv_calendrier.setVisibility(View.VISIBLE);
                                 bt_query_event.setVisibility(View.VISIBLE);
                                 bt_insert_event.setVisibility(View.VISIBLE);
-                                bt_update_event.setVisibility(View.VISIBLE);
-                                bt_delete_event.setVisibility(View.VISIBLE);
+                                bt_update_event.setVisibility(View.INVISIBLE);
                                 btn_datePicker.setVisibility(View.VISIBLE);
                                 btn_datePicker2.setVisibility(View.VISIBLE);
                                 btn_timePicker.setVisibility(View.VISIBLE);
                                 btn_timePicker2.setVisibility(View.VISIBLE);
-                                tv_clear.setVisibility(View.VISIBLE);
+                                btn_display_salles.setVisibility(View.VISIBLE);
                                 et_titre.setVisibility(View.VISIBLE);
                                 et_start_date_time.setVisibility(View.VISIBLE);
                                 et_end_date_time.setVisibility(View.VISIBLE);
+                                tv_nom_salle.setVisibility(View.VISIBLE);
                                 bt_query_calendar.setText("Changer de calendrier");
                             }
                         }
@@ -457,7 +478,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                             Button bt_insert_event = findViewById(R.id.insert_event);
                             Button bt_update_event = findViewById(R.id.bt_update_event);
                             Button bt_delete_event = findViewById(R.id.bt_delete_event);
-                            bt_insert_event.setVisibility(View.INVISIBLE);
+                            bt_insert_event.setVisibility(View.VISIBLE);
                             bt_update_event.setVisibility(View.VISIBLE);
                             bt_delete_event.setVisibility(View.VISIBLE);
                         }
@@ -476,6 +497,26 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
+    //choisir sa salle
+    public void AfficherNomSalle() {
+
+        sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+
+        IDholder = getIntent().getStringExtra("ListViewClickedItemValue");
+
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelper.TABLE_NAME + " WHERE id = " + IDholder + "", null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+                nomsalle.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name)));
+
+            }
+            while (cursor.moveToNext());
+
+            cursor.close();
+        }
+    }
 
 
 
@@ -484,7 +525,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 // Ajouter un evenement
     public void insert_event(View view) {
         String targetCalendarId = ((TextView) findViewById(R.id.tv_calendar_id)).getText().toString();
-        EditText et_nom =  findViewById(R.id.et_nom);
+        EditText et_nom = findViewById(R.id.et_nom);
+        TextView tv_nom_salle = findViewById(R.id.tv_nom_salle);
+        String nom_salle = tv_nom_salle.getText().toString();
         String nom = et_nom.getText().toString();
         TextView et_start_date_time = findViewById(R.id.tv_start_date_time);
         TextView et_end_date_time = findViewById(R.id.tv_end_date_time);
@@ -512,7 +555,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             values.put(CalendarContract.Events.DTSTART, StartTimeMillis);
             values.put(CalendarContract.Events.DTEND, endTimeMillis);
             values.put(CalendarContract.Events.TITLE, targetTitle+ " ("+nom+")");
-            values.put(CalendarContract.Events.DESCRIPTION, "Réservation");
+            values.put(CalendarContract.Events.DESCRIPTION, "Réservation de la salle " +nom_salle+".");
             values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
             values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName());
 

@@ -44,7 +44,8 @@
         <activity android:name=".MaterielActivity" />
         <activity android:name=".DisplaySQLiteMaterielActivity" />
         <activity android:name=".EditSingleRecordMaterielActivity" />
-        <activity android:name=".ShowSingleRecordMaterielActivity"></activity>
+        <activity android:name=".ShowSingleRecordMaterielActivity" />
+        <activity android:name=".DisplaySQLiteEventsActivity"></activity>
     </application>
 
 </manifest>
