@@ -524,6 +524,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
 // Ajouter un evenement
     public void insert_event(View view) {
+
         String targetCalendarId = ((TextView) findViewById(R.id.tv_calendar_id)).getText().toString();
         EditText et_nom = findViewById(R.id.et_nom);
         TextView tv_nom_salle = findViewById(R.id.tv_nom_salle);
