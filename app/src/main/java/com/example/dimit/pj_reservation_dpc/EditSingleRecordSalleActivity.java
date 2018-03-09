@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EditSingleRecordActivity extends AppCompatActivity {
+public class EditSingleRecordSalleActivity extends AppCompatActivity {
 
     EditText name, capacite,description,adresse,codepostal,ville;
     TextView titre;
@@ -27,7 +27,7 @@ public class EditSingleRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_single_record);
+        setContentView(R.layout.activity_edit_single_record_salle);
         titre = (TextView) findViewById(R.id.textViewTITRE);
         name = (EditText) findViewById(R.id.EditTextName);
         capacite = (EditText) findViewById(R.id.editText3);
@@ -66,15 +66,15 @@ public class EditSingleRecordActivity extends AppCompatActivity {
 
                 sqLiteDatabase.close();
 
-                Toast.makeText(EditSingleRecordActivity.this,"La modification a été faite", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EditSingleRecordActivity.this, DisplaySQLiteDataActivity.class);
+                Toast.makeText(EditSingleRecordSalleActivity.this,"La modification a été faite", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EditSingleRecordSalleActivity.this, DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
             }
         });
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditSingleRecordActivity.this, DisplaySQLiteDataActivity.class);
+                Intent intent = new Intent(EditSingleRecordSalleActivity.this, DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
             }
         });

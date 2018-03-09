@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.dimit.pj_reservation_dpc.ShowSingleRecordActivity">
+    tools:context="com.example.dimit.pj_reservation_dpc.ShowSingleRecordSalleActivity">
 
     <TextView
         android:id="@+id/textView"

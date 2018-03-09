@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends BaseAdapter {
+public class ListAdapterSalle extends BaseAdapter {
 
     Context context;
     ArrayList<String> ID;
@@ -24,7 +24,7 @@ public class ListAdapter extends BaseAdapter {
     ArrayList<String> Ville;
 
 
-    public ListAdapter(
+    public ListAdapterSalle(
             Context context2,
             ArrayList<String> id,
             ArrayList<String> name,
@@ -70,7 +70,7 @@ public class ListAdapter extends BaseAdapter {
         if (child == null) {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            child = layoutInflater.inflate(R.layout.items, null);
+            child = layoutInflater.inflate(R.layout.itemssalle, null);
 
             holder = new Holder();
 

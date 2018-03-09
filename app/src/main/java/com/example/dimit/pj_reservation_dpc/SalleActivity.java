@@ -58,7 +58,7 @@ public class SalleActivity extends AppCompatActivity {
         ButtonDisplayData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SalleActivity.this, DisplaySQLiteDataActivity.class);
+                Intent intent = new Intent(SalleActivity.this, DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
             }
         });

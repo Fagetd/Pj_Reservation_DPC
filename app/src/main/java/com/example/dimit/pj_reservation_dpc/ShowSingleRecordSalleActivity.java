@@ -8,10 +8,9 @@ import android.content.Context;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.TextView;
+import android.widget.TextView;
 
-public class ShowSingleRecordActivity extends AppCompatActivity {
+public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
     String IDholder;
     TextView id, name, capacite, description,adresse,codepostal,ville;
@@ -25,7 +24,7 @@ public class ShowSingleRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_single_record);
+        setContentView(R.layout.activity_show_single_record_salle);
 
         id = (TextView) findViewById(R.id.textViewID);
         name = (TextView) findViewById(R.id.textViewName);
@@ -52,7 +51,7 @@ public class ShowSingleRecordActivity extends AppCompatActivity {
                 sqLiteDatabase.execSQL(SQLiteDataBaseQueryHolder);
 
                 sqLiteDatabase.close();
-                Intent intent = new Intent(ShowSingleRecordActivity.this, DisplaySQLiteDataActivity.class);
+                Intent intent = new Intent(ShowSingleRecordSalleActivity.this, DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
 
                 finish();
@@ -64,7 +63,7 @@ public class ShowSingleRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),EditSingleRecordActivity.class);
+                Intent intent = new Intent(getApplicationContext(),EditSingleRecordSalleActivity.class);
 
                 intent.putExtra("EditID", IDholder);
 
@@ -76,7 +75,7 @@ public class ShowSingleRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),DisplaySQLiteDataActivity.class);
+                Intent intent = new Intent(getApplicationContext(),DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
 
             }

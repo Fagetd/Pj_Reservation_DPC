@@ -9,14 +9,13 @@ import android.widget.ListView;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import java.util.ArrayList;
 
-public class DisplaySQLiteDataActivity extends AppCompatActivity {
+public class DisplaySQLiteSalleActivity extends AppCompatActivity {
 
     SQLiteHelper sqLiteHelper;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
-    ListAdapter listAdapter ;
+    ListAdapterSalle listAdapterSalle;
     ListView LISTVIEW;
     Button retour;
 
@@ -34,7 +33,7 @@ public class DisplaySQLiteDataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_sqlite_data);
+        setContentView(R.layout.activity_display_sqlite_salle);
 
         LISTVIEW = (ListView) findViewById(R.id.listView1);
         retour = (Button) findViewById(R.id.buttonRetour);
@@ -57,7 +56,7 @@ public class DisplaySQLiteDataActivity extends AppCompatActivity {
 
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(getApplicationContext(),ShowSingleRecordActivity.class);
+                Intent intent = new Intent(getApplicationContext(),ShowSingleRecordSalleActivity.class);
 
                 intent.putExtra("ListViewClickedItemValue", ListViewClickItemArray.get(position).toString());
 
@@ -114,7 +113,7 @@ public class DisplaySQLiteDataActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
 
-        listAdapter = new ListAdapter(DisplaySQLiteDataActivity.this,
+        listAdapterSalle = new ListAdapterSalle(DisplaySQLiteSalleActivity.this,
 
                 ID_Array,
                 NAME_Array,
@@ -125,7 +124,7 @@ public class DisplaySQLiteDataActivity extends AppCompatActivity {
                 VILLE_Array
         );
 
-        LISTVIEW.setAdapter(listAdapter);
+        LISTVIEW.setAdapter(listAdapterSalle);
 
         cursor.close();
     }

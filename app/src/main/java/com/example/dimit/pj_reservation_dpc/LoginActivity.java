@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
         bt_connexion.setOnClickListener(this);
         findViewById(R.id.bt_inscription).setOnClickListener(this);
-
+        startActivity(new Intent(getApplicationContext(),EventsActivity.class));
     }
 
 

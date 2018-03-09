@@ -1,5 +1,6 @@
 package com.example.dimit.pj_reservation_dpc;
 
+import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient googleApiClient;
     private String email;
     private FirebaseAuth firebaseAuth;
+    private GoogleApiClient GoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,13 +186,20 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_deconnexion) {
-            //if (googleApiClient.isConnected()){
-              //  Auth.GoogleSignInApi.signOut(googleApiClient);
-            //}else {
+//            if(App.getGoogleApiHelper().isConnected())
+//            {
+//                //Get google api client from anywhere
+//                GoogleApiClient client = App.getGoogleApiHelper().getGoogleApiClient();
+//
+//                Auth.GoogleSignInApi.signOut(client);
+//            }
+//            if (googleApiClient.isConnected()){
+//
+//            }
                 firebaseAuth.signOut();
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
-                //Toast.makeText(this, "deco", Toast.LENGTH_SHORT).show();
+
         //    }
         }
 
