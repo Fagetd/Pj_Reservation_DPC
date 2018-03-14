@@ -177,13 +177,15 @@ public class MainActivity extends AppCompatActivity
             //fragmentTransaction.replace(R.id.fragment_container,fragment);
             //fragmentTransaction.commit();
             //Toast.makeText(this, "Support", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_parametres) {
+        } else if (id == R.id.nav_catalogue) {
 
-            ParametresFragment fragment = new ParametresFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container,fragment,"ParametresFragment");
-            transaction.commit();
-
+//            ParametresFragment fragment = new ParametresFragment();
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.replace(R.id.fragment_container,fragment,"ParametresFragment");
+//            transaction.commit();
+            Intent intent = new Intent(this,CatalogueActivity.class);
+            intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
         } else if (id == R.id.nav_deconnexion) {
 //            if(App.getGoogleApiHelper().isConnected())

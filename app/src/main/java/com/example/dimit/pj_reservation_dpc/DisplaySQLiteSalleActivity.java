@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 
 public class DisplaySQLiteSalleActivity extends AppCompatActivity {
 
-    SQLiteHelper sqLiteHelper;
+    SQLiteHelperSalle sqLiteHelperSalle;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     ListAdapterSalle listAdapterSalle;
@@ -47,7 +47,7 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
         VILLE_Array = new ArrayList<String>();
 
 
-        sqLiteHelper = new SQLiteHelper(this);
+        sqLiteHelperSalle = new SQLiteHelperSalle(this);
 
         LISTVIEW.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -84,9 +84,9 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
 
     private void ShowSQLiteDBdata() {
 
-        sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+        sqLiteDatabase = sqLiteHelperSalle.getWritableDatabase();
 
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+SQLiteHelper.TABLE_NAME+"", null);
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ SQLiteHelperSalle.TABLE_NAME+"", null);
 
         ID_Array.clear();
         NAME_Array.clear();
@@ -99,15 +99,15 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             do {
 
-                ID_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID)));
+                ID_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_ID)));
                 //Inserting Column ID into Array to Use at ListView Click Listener Method.
-                ListViewClickItemArray.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID)));
-                NAME_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name)));
-                CAPACITE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Capacite)));
-                DESCRIPTION_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Description)));
-                ADRESSE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_Adresse)));
-                CODEPOSTAL_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_CodePostal)));
-                VILLE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_6_Ville)));
+                ListViewClickItemArray.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_ID)));
+                NAME_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_1_Name)));
+                CAPACITE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_2_Capacite)));
+                DESCRIPTION_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_3_Description)));
+                ADRESSE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_4_Adresse)));
+                CODEPOSTAL_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_5_CodePostal)));
+                VILLE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_6_Ville)));
 
 
             } while (cursor.moveToNext());

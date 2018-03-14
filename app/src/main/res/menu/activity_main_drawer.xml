@@ -8,6 +8,11 @@
             android:icon="@drawable/ic_event_black_24dp"
             android:title="Réservation"
             />
+
+        <item
+            android:id="@+id/nav_catalogue"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="Catalogue" />
         <item
             android:id="@+id/nav_salles"
             android:icon="@drawable/ic_group_black_24dp"
@@ -16,10 +21,7 @@
             android:id="@+id/nav_materiel"
             android:icon="@drawable/ic_event_seat_black_24dp"
             android:title="Matériel" />
-        <item
-            android:id="@+id/nav_parametres"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Paramètres" />
+
     </group>
 
     <item android:title="">

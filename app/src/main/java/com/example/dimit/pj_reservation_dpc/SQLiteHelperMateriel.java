@@ -33,7 +33,14 @@ public class SQLiteHelperMateriel extends SQLiteOpenHelper {
 //    private static final String DATABASE_ALTER_2 = "ALTER TABLE "
 //            + TABLE_NAME + " ADD COLUMN " + Table_Column_4_AutreColonne + " string;";
 
-
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=1;");
+        }
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);

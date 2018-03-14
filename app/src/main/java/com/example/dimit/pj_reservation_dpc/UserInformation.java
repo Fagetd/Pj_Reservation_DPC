@@ -15,7 +15,6 @@ public class UserInformation {
     public String numTelephone;
     public String societe;
     public String mail;
-   // public String admin;
 
     public UserInformation(){
 
@@ -32,6 +31,6 @@ public class UserInformation {
         this.numTelephone = numTelephone;
         this.societe = societe;
         this.mail = mail;
-       // this.admin = admin;
+
     }
 }

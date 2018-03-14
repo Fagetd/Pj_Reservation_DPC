@@ -73,20 +73,20 @@ public class SalleActivity extends AppCompatActivity {
 
     public void SQLiteDataBaseBuild(){
 
-        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperSalle.DATABASE_NAME, Context.MODE_PRIVATE, null);
 
     }
 
     public void SQLiteTableBuild(){
 
-        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS "+SQLiteHelper.TABLE_NAME+"("
-                +SQLiteHelper.Table_Column_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                +SQLiteHelper.Table_Column_1_Name+" VARCHAR, "
-                +SQLiteHelper.Table_Column_2_Capacite+" VARCHAR, "
-                +SQLiteHelper.Table_Column_3_Description+" VARCHAR, "
-                +SQLiteHelper.Table_Column_4_Adresse+" VARCHAR, "
-                +SQLiteHelper.Table_Column_5_CodePostal+" VARCHAR, "
-                +SQLiteHelper.Table_Column_6_Ville+" VARCHAR);");
+        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS "+ SQLiteHelperSalle.TABLE_NAME+"("
+                + SQLiteHelperSalle.Table_Column_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                + SQLiteHelperSalle.Table_Column_1_Name+" VARCHAR, "
+                + SQLiteHelperSalle.Table_Column_2_Capacite+" VARCHAR, "
+                + SQLiteHelperSalle.Table_Column_3_Description+" VARCHAR, "
+                + SQLiteHelperSalle.Table_Column_4_Adresse+" VARCHAR, "
+                + SQLiteHelperSalle.Table_Column_5_CodePostal+" VARCHAR, "
+                + SQLiteHelperSalle.Table_Column_6_Ville+" VARCHAR);");
 
     }
 
@@ -113,7 +113,7 @@ public class SalleActivity extends AppCompatActivity {
         if(EditTextEmptyHold == true)
         {
 
-            SQLiteDataBaseQueryHolder = "INSERT INTO "+SQLiteHelper.TABLE_NAME+" (name,capacite,description,adresse,codepostal,ville) " +
+            SQLiteDataBaseQueryHolder = "INSERT INTO "+ SQLiteHelperSalle.TABLE_NAME+" (name,capacite,description,adresse,codepostal,ville) " +
                     "VALUES('"+NameHolder+"', '"+CapaciteHolder+"', '"+DescriptionHolder+"', '"+AdresseHolder+"', '"+CodepostalHolder+"', '"+VilleHolder+"');";
 
             sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);

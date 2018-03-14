@@ -15,7 +15,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
     String IDholder;
     TextView id, name, capacite, description,adresse,codepostal,ville;
     SQLiteDatabase sqLiteDatabase;
-    SQLiteHelper sqLiteHelper;
+    SQLiteHelperSalle sqLiteHelperSalle;
     Cursor cursor;
     Button Delete, Edit, retour;
     SQLiteDatabase sqLiteDatabaseObj;
@@ -38,7 +38,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
         Edit = (Button)findViewById(R.id.buttonEdit);
         retour = (Button)findViewById(R.id.buttonRetour);
 
-        sqLiteHelper = new SQLiteHelper(this);
+        sqLiteHelperSalle = new SQLiteHelperSalle(this);
 
         Delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +46,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
                 OpenSQLiteDataBase();
 
-                SQLiteDataBaseQueryHolder = "DELETE FROM "+SQLiteHelper.TABLE_NAME+" WHERE id = "+IDholder+"";
+                SQLiteDataBaseQueryHolder = "DELETE FROM "+ SQLiteHelperSalle.TABLE_NAME+" WHERE id = "+IDholder+"";
 
                 sqLiteDatabase.execSQL(SQLiteDataBaseQueryHolder);
 
@@ -93,22 +93,22 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
     public void ShowSingleRecordInTextView() {
 
-        sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+        sqLiteDatabase = sqLiteHelperSalle.getWritableDatabase();
 
         IDholder = getIntent().getStringExtra("ListViewClickedItemValue");
 
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelper.TABLE_NAME + " WHERE id = " + IDholder + "", null);
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelperSalle.TABLE_NAME + " WHERE id = " + IDholder + "", null);
 
         if (cursor.moveToFirst()) {
 
             do {
-                id.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_ID)));
-                name.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name)));
-                capacite.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_2_Capacite)));
-                description.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_3_Description)));
-                adresse.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_4_Adresse)));
-                codepostal.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_5_CodePostal)));
-                ville.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_6_Ville)));
+                id.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_ID)));
+                name.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_1_Name)));
+                capacite.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_2_Capacite)));
+                description.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_3_Description)));
+                adresse.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_4_Adresse)));
+                codepostal.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_5_CodePostal)));
+                ville.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_6_Ville)));
             }
             while (cursor.moveToNext());
 
@@ -119,7 +119,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
     public void OpenSQLiteDataBase(){
 
-        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperSalle.DATABASE_NAME, Context.MODE_PRIVATE, null);
 
     }
 }

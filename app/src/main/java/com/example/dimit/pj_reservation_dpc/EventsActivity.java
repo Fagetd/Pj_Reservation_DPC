@@ -16,7 +16,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,11 +36,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -54,15 +48,15 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     private GoogleApiClient GoogleApiClient;
     public static  final int SIGN_IN_CODE = 777;
     private static final String TAG = "EventsActivity";
-    String IDholder;
-    String IDholder2;
+    String IDholder,IDholder2,montitre,madatedebut,madatefin,monnomsalle,monnommateriel,maqtemateriel;
+    public static Boolean a=true;
     SQLiteDatabase sqLiteDatabase;
     SQLiteDatabase sqLiteDatabase2;
-    SQLiteHelper sqLiteHelper;
+    SQLiteHelperSalle sqLiteHelperSalle;
     SQLiteHelperMateriel sqLiteHelperMateriel;
     Cursor cursor;
     Cursor cursor2;
-    private GoogleApiHelper googleApiHelper;
+
 
 
 
@@ -72,13 +66,14 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
 
     private TextView tv_date,tv_date2,nomsalle,nommateriel,qtemateriel;
+    private EditText et_titre;
     private Button query_account,btn_time,btn_date,btn_time2,btn_date2,btn_retour,btn_display_salles,btn_display_materiel,btn_deconnexion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        sqLiteHelper = new SQLiteHelper(this);
+        sqLiteHelperSalle = new SQLiteHelperSalle(this);
         sqLiteHelperMateriel = new SQLiteHelperMateriel(this);
         query_account = findViewById(R.id.bt_query_account);
 
@@ -89,24 +84,16 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
-
+        et_titre  = (EditText) findViewById(R.id.et_titre);
+        tv_date   = (TextView) findViewById(R.id.tv_start_date_time);
+        tv_date2  = (TextView) findViewById(R.id.tv_end_date_time);
+        btn_date  = (Button) findViewById(R.id.btn_datePicker);
+        btn_date2 = (Button) findViewById(R.id.btn_datePicker2);
+        btn_time  = (Button) findViewById(R.id.btn_timePicker);
+        btn_time2 = (Button) findViewById(R.id.btn_timePicker2);
+        nommateriel = (TextView)findViewById(R.id.tv_nom_materiel);
         qtemateriel = (TextView)findViewById(R.id.tv_qte_materiel);
-        nommateriel = (TextView)findViewById(R.id.tv_nom_materiel);
         nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
-        tv_date   = (TextView) findViewById(R.id.tv_start_date_time);
-        tv_date2  = (TextView) findViewById(R.id.tv_end_date_time);
-        btn_date  = (Button) findViewById(R.id.btn_datePicker);
-        btn_date2 = (Button) findViewById(R.id.btn_datePicker2);
-        btn_time  = (Button) findViewById(R.id.btn_timePicker);
-        btn_time2 = (Button) findViewById(R.id.btn_timePicker2);
-        nommateriel = (TextView)findViewById(R.id.tv_nom_materiel);
-        nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
-        tv_date   = (TextView) findViewById(R.id.tv_start_date_time);
-        tv_date2  = (TextView) findViewById(R.id.tv_end_date_time);
-        btn_date  = (Button) findViewById(R.id.btn_datePicker);
-        btn_date2 = (Button) findViewById(R.id.btn_datePicker2);
-        btn_time  = (Button) findViewById(R.id.btn_timePicker);
-        btn_time2 = (Button) findViewById(R.id.btn_timePicker2);
         btn_retour = (Button) findViewById(R.id.btn_retour);
         btn_deconnexion = (Button) findViewById(R.id.bt_deconnexion);
         btn_display_salles = (Button) findViewById(R.id.btn_display_salles);
@@ -139,16 +126,64 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 updateTimeEnd();
             }
         });
+
         btn_display_salles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                et_titre = (EditText)findViewById(R.id.et_titre);
+                tv_date = (TextView) findViewById(R.id.tv_start_date_time);
+                tv_date2 = (TextView) findViewById(R.id.tv_end_date_time);
+                //nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
+                //nommateriel = (TextView)findViewById(R.id.tv_nom_materiel);
+                //qtemateriel = (TextView)findViewById(R.id.tv_qte_materiel);
+
+                montitre = et_titre.getText().toString();
+                madatedebut = tv_date.getText().toString();
+                madatefin = tv_date2.getText().toString();
+                //monnomsalle = nomsalle.getText().toString();
+                //monnommateriel = nommateriel.getText().toString();
+                //maqtemateriel = qtemateriel.getText().toString();
+
+                final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+                globalVariable.setTitre(montitre);
+                globalVariable.setDdebut(madatedebut);
+                globalVariable.setDfin(madatefin);
+                //globalVariable.setNsalle(monnomsalle);
+                //globalVariable.setNmateriel(monnommateriel);
+                //globalVariable.setQmateriel(maqtemateriel);
+                a=true;
                 Intent intent = new Intent(EventsActivity.this, DisplaySQLiteEventsSallesActivity.class);
                 startActivity(intent);
             }
         });
+
+
+
         btn_display_materiel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                et_titre = (EditText)findViewById(R.id.et_titre);
+                tv_date = (TextView) findViewById(R.id.tv_start_date_time);
+                tv_date2 = (TextView) findViewById(R.id.tv_end_date_time);
+                nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
+                //nommateriel = (TextView)findViewById(R.id.tv_nom_materiel);
+                //qtemateriel = (TextView)findViewById(R.id.tv_qte_materiel);
+
+                montitre = et_titre.getText().toString();
+                madatedebut = tv_date.getText().toString();
+                madatefin = tv_date2.getText().toString();
+                monnomsalle = nomsalle.getText().toString();
+                //monnommateriel = nommateriel.getText().toString();
+                //maqtemateriel = qtemateriel.getText().toString();
+
+                final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+                globalVariable.setTitre(montitre);
+                globalVariable.setDdebut(madatedebut);
+                globalVariable.setDfin(madatefin);
+                globalVariable.setNsalle(monnomsalle);
+                //globalVariable.setNmateriel(monnommateriel);
+                //globalVariable.setQmateriel(maqtemateriel);
+                a=false;
                 Intent intent = new Intent(EventsActivity.this, DisplaySQLiteEventsMaterielActivity.class);
                 startActivity(intent);
             }
@@ -164,19 +199,28 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         updateTextLabelEnd();
 
 
+
+
+
     }
-
-
 
 
     @Override
     protected void onResume() {
-        AfficherNomSalle();
-        AfficherMateriel();
         super.onResume();
+        if(a==true)
+        {
+            AfficherNomSalle();
+
+
+        }
+        else if(a==false)
+        {
+            AfficherMateriel();
+
+        }
+
     }
-
-
 
 
     @Override
@@ -247,8 +291,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     private void updateTextLabelEnd(){
         tv_date2.setText(formatDateTime.format(endDateTime.getTime()));
     }
-
-
 
 
 
@@ -538,23 +580,36 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
     //choisir sa salle
     public void AfficherNomSalle() {
-        EditText et_titre = findViewById(R.id.et_titre);
-        //String titre = et_titre.getText().toString();
-        sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+
+        sqLiteDatabase = sqLiteHelperSalle.getWritableDatabase();
         IDholder = getIntent().getStringExtra("ListViewClickedItemValue");
 
-
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelper.TABLE_NAME + " WHERE id = " + IDholder + "", null);
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelperSalle.TABLE_NAME + " WHERE id = " + IDholder + "", null);
 
         if (cursor.moveToFirst()) {
 
             do {
-                nomsalle.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelper.Table_Column_1_Name)));
-
+                nomsalle.setText(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_1_Name)));
             }
             while (cursor.moveToNext());
             cursor.close();
         }
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        final String titre = globalVariable.getTitre();
+        final String datedebut = globalVariable.getDdebut();
+        final String datefin = globalVariable.getDfin();
+        //final String Nsalle = globalVariable.getNsalle();
+        //final String Nmateriel = globalVariable.getNmateriel();
+        //final String Qmateriel = globalVariable.getQmateriel();
+
+        et_titre.setText(titre);
+        tv_date.setText(datedebut);
+        tv_date2.setText(datefin);
+        //nomsalle.setText(Nsalle);
+        //nommateriel.setText(Nmateriel);
+        //qtemateriel.setText(Qmateriel);
+
     }
     //choisir le matériel
     public void AfficherMateriel() {
@@ -574,6 +629,21 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             while (cursor2.moveToNext());
             cursor2.close();
         }
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        final String titre = globalVariable.getTitre();
+        final String datedebut = globalVariable.getDdebut();
+        final String datefin = globalVariable.getDfin();
+        final String Nsalle = globalVariable.getNsalle();
+        //final String Nmateriel = globalVariable.getNmateriel();
+        //final String Qmateriel = globalVariable.getQmateriel();
+
+        et_titre.setText(titre);
+        tv_date.setText(datedebut);
+        tv_date2.setText(datefin);
+        nomsalle.setText(Nsalle);
+        //nommateriel.setText(Nmateriel);
+        //qtemateriel.setText(Qmateriel);
     }
 
 
@@ -704,7 +774,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);                                              // nom du materiel
         TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);                                              // quantité du matériel
 
-
         bt_insert_event.setVisibility(View.VISIBLE);
         bt_update_event.setVisibility(View.INVISIBLE);
         bt_delete_event.setVisibility(View.INVISIBLE);
@@ -714,8 +783,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         et_end_date_time.setText("");
         tv_nom_materiel.setText("");
         tv_qte_materiel.setText("");
-
-
     }
+
+
+
 
 }
