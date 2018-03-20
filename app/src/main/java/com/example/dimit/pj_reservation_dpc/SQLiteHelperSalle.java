@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteHelperSalle extends SQLiteOpenHelper {
     public SQLiteHelperSalle(Context context) {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     static String DATABASE_NAME="database";

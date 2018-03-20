@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,19 +45,25 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class EventsActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener{ //GoogleApiClient.OnConnectionFailedListener,
+public class EventsActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,View.OnClickListener{
     private GoogleApiClient GoogleApiClient;
     public static  final int SIGN_IN_CODE = 777;
     private static final String TAG = "EventsActivity";
-    String IDholder,IDholder2,montitre,madatedebut,madatefin,monnomsalle,monnommateriel,maqtemateriel;
+    String IDholder,IDholder2,montitre,madatedebut,madatefin,monnomsalle;
     public static Boolean a=true;
-    public static int rqcode,rescode;
+    public static int rqcode,rescode,dpd_datedebut_year,dpd_datedebut_monthOfYear,
+                        dpd_datedebut_dayOfMonth,dpd_datefin_year,dpd_datefin_monthOfYear,dpd_datefin_dayOfMonth,
+                            dpd_timedebut_hourOfDay,dpd_timedebut_minute,dpd_timefin_hourOfDay,dpd_timefin_minute;
     public static Intent Data;
     public static View v;
+    public static DatePicker dpdebut_view,dpfin_view;
+    public static TimePicker tpdebut_view,tpfin_view;
     public static String[] PROJECTION;
     public static String accountcalendrier;
     public static long idcalendrier ;
-    public static CharSequence CharSeqCalendarId, CharSeqtv_calendrier;
+
+    public static CharSequence CharSeqCalendarId, CharSeqtv_calendrier, datedebut,datefin;
+
 
 
     SQLiteDatabase sqLiteDatabase;
@@ -72,8 +79,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
 
 
-    private TextView tv_date,tv_date2,nomsalle,nommateriel,qtemateriel;
-    private EditText et_titre;
+    private TextView tv_date,tv_date2,nomsalle,nommateriel,qtemateriel,message;
+    private EditText et_titre,qte_materiel;
     private Button query_account,btn_time,btn_date,btn_time2,btn_date2,btn_retour,btn_display_salles,btn_display_materiel,btn_deconnexion;
 
     @Override
@@ -104,6 +111,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         btn_deconnexion = (Button) findViewById(R.id.bt_deconnexion);
         btn_display_salles = (Button) findViewById(R.id.btn_display_salles);
         btn_display_materiel = (Button) findViewById(R.id.btn_display_materiel);
+        qte_materiel = (EditText) findViewById(R.id.et_qtemateriel);
+        message = (TextView)findViewById(R.id.tv_message);
 
         // les onClick
         query_account.setOnClickListener(this);
@@ -141,13 +150,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 tv_date2 = (TextView) findViewById(R.id.tv_end_date_time);
 
                 montitre = et_titre.getText().toString();
-                madatedebut = tv_date.getText().toString();
-                madatefin = tv_date2.getText().toString();
-
                 final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
                 globalVariable.setTitre(montitre);
-                globalVariable.setDdebut(madatedebut);
-                globalVariable.setDfin(madatefin);
                 a = true;
                 Intent intent = new Intent(EventsActivity.this, DisplaySQLiteEventsSallesActivity.class);
                 startActivity(intent);
@@ -165,14 +169,10 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 nomsalle = (TextView) findViewById(R.id.tv_nom_salle);
 
                 montitre = et_titre.getText().toString();
-                madatedebut = tv_date.getText().toString();
-                madatefin = tv_date2.getText().toString();
                 monnomsalle = nomsalle.getText().toString();
 
                 final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
                 globalVariable.setTitre(montitre);
-                globalVariable.setDdebut(madatedebut);
-                globalVariable.setDfin(madatefin);
                 globalVariable.setNsalle(monnomsalle);
                 a=false;
                 Intent intent = new Intent(EventsActivity.this, DisplaySQLiteEventsMaterielActivity.class);
@@ -186,8 +186,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                 startActivity(intent);
             }
         });
-        updateTextLabel();
-        updateTextLabelEnd();
 
     }
 
@@ -220,7 +218,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-    //changer de la date et l'heure du début et de la fin
+    //changer la date et l'heure du début et de la fin
     private void updateDate(){
         new DatePickerDialog(this, d, dateTime.get(Calendar.YEAR),dateTime.get(Calendar.MONTH),dateTime.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -237,18 +235,46 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            dateTime.set(Calendar.YEAR, year);
-            dateTime.set(Calendar.MONTH, monthOfYear);
-            dateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            dpdebut_view = view;
+            dpd_datedebut_year = year;
+            dpd_datedebut_monthOfYear = monthOfYear;
+            dpd_datedebut_dayOfMonth = dayOfMonth;
+            dateTime.set(Calendar.YEAR, dpd_datedebut_year);
+            dateTime.set(Calendar.MONTH, dpd_datedebut_monthOfYear);
+            dateTime.set(Calendar.DAY_OF_MONTH, dpd_datedebut_dayOfMonth);
+
+
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+            globalVariable.setdpd_datedebut_view(dpdebut_view);
+            globalVariable.setdpd_datedebut_year(dpd_datedebut_year);
+            globalVariable.setdpd_datedebut_monthOfYear(dpd_datedebut_monthOfYear);
+            globalVariable.setdpd_datedebut_dayOfMonth(dpd_datedebut_dayOfMonth);
+            globalVariable.setdatetime(dateTime);
+
             updateTextLabel();
+
         }
     };
+
     DatePickerDialog.OnDateSetListener dend = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            endDateTime.set(Calendar.YEAR, year);
-            endDateTime.set(Calendar.MONTH, monthOfYear);
-            endDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            dpfin_view = view;
+            dpd_datefin_year = year;
+            dpd_datefin_monthOfYear = monthOfYear;
+            dpd_datefin_dayOfMonth = dayOfMonth;
+
+            endDateTime.set(Calendar.YEAR, dpd_datefin_year);
+            endDateTime.set(Calendar.MONTH, dpd_datefin_monthOfYear);
+            endDateTime.set(Calendar.DAY_OF_MONTH, dpd_datefin_dayOfMonth);
+
+
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+            globalVariable.setdpd_datefin_view(dpfin_view);
+            globalVariable.setdpd_datefin_year(dpd_datefin_year);
+            globalVariable.setdpd_datefin_monthOfYear(dpd_datefin_monthOfYear);
+            globalVariable.setdpd_datefin_dayOfMonth(dpd_datefin_dayOfMonth);
+            globalVariable.setenddatetime(endDateTime);
             updateTextLabelEnd();
         }
     };
@@ -256,33 +282,61 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateTime.set(Calendar.MINUTE, minute);
+            tpdebut_view = view;
+            dpd_timedebut_hourOfDay = hourOfDay;
+            dpd_timedebut_minute = minute;
+
+            dateTime.set(Calendar.HOUR_OF_DAY, dpd_timedebut_hourOfDay);
+            dateTime.set(Calendar.MINUTE, dpd_timedebut_minute);
+
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+            globalVariable.setdpd_timedebut_view(tpdebut_view);
+            globalVariable.setdpd_timedebut_hourOfDay(dpd_timedebut_hourOfDay);
+            globalVariable.setdpd_timedebut_minute(dpd_timedebut_minute);
+            globalVariable.setdatetime(dateTime);
             updateTextLabel();
         }
     };
     TimePickerDialog.OnTimeSetListener tend = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            endDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            endDateTime.set(Calendar.MINUTE, minute);
+
+            tpfin_view = view;
+            dpd_timefin_hourOfDay = hourOfDay;
+            dpd_timefin_minute = minute;
+
+            endDateTime.set(Calendar.HOUR_OF_DAY, dpd_timefin_hourOfDay);
+            endDateTime.set(Calendar.MINUTE, dpd_timefin_minute);
+
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+            globalVariable.setdpd_timefin_view(tpfin_view);
+            globalVariable.setdpd_timefin_hourOfDay(dpd_timefin_hourOfDay);
+            globalVariable.setdpd_timefin_minute(dpd_timefin_minute);
+            globalVariable.setenddatetime(endDateTime);
             updateTextLabelEnd();
         }
     };
 
     private void updateTextLabel(){
+
         tv_date.setText(formatDateTime.format(dateTime.getTime()));
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        datedebut = tv_date.getText();
+        globalVariable.setdatedebut(datedebut);
+
     }
     private void updateTextLabelEnd(){
         tv_date2.setText(formatDateTime.format(endDateTime.getTime()));
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        datefin = tv_date2.getText();
+        globalVariable.setdatefin(datefin);
     }
-
-
 
 
 
     //se connecter avec gmail
     private void signIn(){
+        btn_deconnexion.performClick();
         Auth.GoogleSignInApi.signOut(GoogleApiClient);
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(GoogleApiClient);
         startActivityForResult(intent,SIGN_IN_CODE);
@@ -312,6 +366,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             handleSignInResult(result);
         }
     }
+
     //rester connecté après avoir choisi un matériel ou une salle
     protected void onActivityResult2(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -330,6 +385,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             TextView queryNameAccountResult =  findViewById(R.id.et_nom);
             queryAccountResult.setText(account.getEmail());                //On écrit l'email
             queryNameAccountResult.setText(account.getDisplayName());      //On écrit le nom
+
             updateUI(true);
         }else {
             updateUI(false);
@@ -342,11 +398,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             Button bt_query_calendar = findViewById(R.id.bt_query_calendar);
             Button bt_query_account = findViewById(R.id.bt_query_account);
             bt_query_calendar.setVisibility(View.VISIBLE);
-            bt_query_account.setText("Changer de compte");
             ImageView iv_pastille = findViewById(R.id.iv_pastille);
             iv_pastille.setVisibility(View.VISIBLE);
 
-            Toast.makeText(this,"Vous êtes connecté", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this,"Vous n'êtes pas connecté", Toast.LENGTH_LONG).show();
         }
@@ -490,71 +544,62 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
 
 
-    // Chercher un calendrier2
+    // Reprendre le même calendrier après avoir été sur la liste du matériel/salle
     public void query_calendar2(View view) {
         v = view;
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         globalVariable.getEvent_projection();
 
 
-//        int PROJECTION_ID_INDEX = 0;
-//        int PROJECTION_ACCOUNT_NAME_INDEX = 1;
-//        int PROJECTION_DISPLAY_NAME_INDEX = 2;
-//        int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
-//        int PROJECTION_CALENDAR_ACCESS_LEVEL = 4;
-
         final List<String> accountNameList = new ArrayList<>();
         final List<Integer> calendarIdList = new ArrayList<>();
 
+        long id= globalVariable.getIdcalendrier();
+        String account = globalVariable.getAccountcalendrier();
+        //Enregistrer temporairement les informations pour que l'utilisateur choisisse
+        accountNameList.add(account);
+        calendarIdList.add((int) id);
 
-
-         long id= globalVariable.getIdcalendrier();
-         String account = globalVariable.getAccountcalendrier();
-
-         //Enregistrer temporairement les informations pour que l'utilisateur choisisse
-           accountNameList.add(account);
-           calendarIdList.add((int) id);
-
-           Button bt_query_calendar = findViewById(R.id.bt_query_calendar);                                            // chercher un calendrier
-           TextView targetCalendarId = findViewById(R.id.tv_calendar_id);                                              // id du calendrier
-           TextView tv_calendrier = findViewById(R.id.tv_adresse_calendrier);                                          // nom du calendrier
-           Button bt_query_event = findViewById(R.id.bt_query_event);                                                  // chercher un event
-           Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
-           Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
-           Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
-           EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
-           TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de start
-           TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
-           Button btn_datePicker = findViewById(R.id.btn_datePicker);                                                  // update date start
-           Button btn_datePicker2 = findViewById(R.id.btn_datePicker2);                                                // update time start
-           Button btn_timePicker = findViewById(R.id.btn_timePicker);                                                  // update date end
-           Button btn_timePicker2 = findViewById(R.id.btn_timePicker2);                                                // update time end
-           Button btn_display_salles= findViewById(R.id.btn_display_salles);                                           // choisir sa salle
-           TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
+        Button bt_query_calendar = findViewById(R.id.bt_query_calendar);                                            // chercher un calendrier
+        TextView targetCalendarId = findViewById(R.id.tv_calendar_id);                                              // id du calendrier
+        TextView tv_calendrier = findViewById(R.id.tv_adresse_calendrier);                                          // nom du calendrier
+        Button bt_query_event = findViewById(R.id.bt_query_event);                                                  // chercher un event
+        Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
+        Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
+        Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
+        EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
+        TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de start
+        TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
+        Button btn_datePicker = findViewById(R.id.btn_datePicker);                                                  // update date start
+        Button btn_datePicker2 = findViewById(R.id.btn_datePicker2);                                                // update time start
+        Button btn_timePicker = findViewById(R.id.btn_timePicker);                                                  // update date end
+        Button btn_timePicker2 = findViewById(R.id.btn_timePicker2);                                                // update time end
+        Button btn_display_salles= findViewById(R.id.btn_display_salles);                                           // choisir sa salle
+        TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
 
 
 
-           CharSequence Charseqid = globalVariable.getCharSeqIdcalendrier();
-           CharSequence Charseqtv_calendrier = globalVariable.getCharSeqtv_calendrier();
-           targetCalendarId.setText(Charseqid);
-           tv_calendrier.setText(Charseqtv_calendrier);
+        CharSequence Charseqid = globalVariable.getCharSeqIdcalendrier();
+        CharSequence Charseqtv_calendrier = globalVariable.getCharSeqtv_calendrier();
+        targetCalendarId.setText(Charseqid);
+        tv_calendrier.setText(Charseqtv_calendrier);
 
         // si le calendrier est choisi
-         if (tv_calendrier !=null){
-                 tv_calendrier.setVisibility(View.VISIBLE);
-                 bt_query_event.setVisibility(View.VISIBLE);
-                 bt_insert_event.setVisibility(View.VISIBLE);
-                 bt_update_event.setVisibility(View.INVISIBLE);
-                 btn_datePicker.setVisibility(View.VISIBLE);
-                 btn_datePicker2.setVisibility(View.VISIBLE);
-                 btn_timePicker.setVisibility(View.VISIBLE);
-                 btn_timePicker2.setVisibility(View.VISIBLE);
-                 btn_display_salles.setVisibility(View.VISIBLE);
-                 et_titre.setVisibility(View.VISIBLE);
-                 et_start_date_time.setVisibility(View.VISIBLE);
-                 et_end_date_time.setVisibility(View.VISIBLE);
-                 tv_nom_salle.setVisibility(View.VISIBLE);
-                 bt_query_calendar.setText("Changer de calendrier");
+        if (tv_calendrier !=null){
+            tv_calendrier.setVisibility(View.VISIBLE);
+            bt_query_event.setVisibility(View.VISIBLE);
+            bt_insert_event.setVisibility(View.VISIBLE);
+            bt_update_event.setVisibility(View.INVISIBLE);
+            btn_datePicker.setVisibility(View.VISIBLE);
+            btn_datePicker2.setVisibility(View.VISIBLE);
+            btn_timePicker.setVisibility(View.VISIBLE);
+            btn_timePicker2.setVisibility(View.VISIBLE);
+            btn_display_salles.setVisibility(View.VISIBLE);
+            et_titre.setVisibility(View.VISIBLE);
+            et_start_date_time.setVisibility(View.VISIBLE);
+            et_end_date_time.setVisibility(View.VISIBLE);
+            tv_nom_salle.setVisibility(View.VISIBLE);
+            bt_query_calendar.setText("Changer de calendrier");
             }
     }
 
@@ -591,7 +636,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         String[] selectionArgs = new String[]{targetCalendar};
         ContentUris.appendId(builder, startMillis);
         ContentUris.appendId(builder, endMillis);
-
 
         int permission = ContextCompat.checkSelfPermission(EventsActivity.this, android.Manifest.permission.READ_CALENDAR);
         // Créer une liste pour stocker temporairement les résultats de la requête
@@ -685,8 +729,8 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         final String titre = globalVariable.getTitre();
-        final String datedebut = globalVariable.getDdebut();
-        final String datefin = globalVariable.getDfin();
+        final CharSequence datedebut = globalVariable.getdatedebut();
+        final CharSequence datefin = globalVariable.getdatefin();
         final int RQcode = globalVariable.getrequestcode();
         final int REScode = globalVariable.getresultcode();
         final Intent Datas= globalVariable.getData();
@@ -696,9 +740,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         tv_date2.setText(datefin);
         onActivityResult2(RQcode,REScode,Datas);
         query_calendar2(v);
-
-
-
 
     }
     //choisir le matériel
@@ -715,15 +756,21 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             do {
                 nommateriel.setText(cursor2.getString(cursor2.getColumnIndex(SQLiteHelperMateriel.Table_Column_1_Libelle)));
                 qtemateriel.setText(cursor2.getString(cursor2.getColumnIndex(SQLiteHelperMateriel.Table_Column_2_Qte)));
+
+                int i =Integer.parseInt(qtemateriel.getText().toString());
+                qte_materiel.setText(Integer.toString(i));
+                message.setText("Nous disposons de "+qtemateriel.getText()+" "+nommateriel.getText()+" au maximum");
+
             }
             while (cursor2.moveToNext());
             cursor2.close();
+
         }
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         final String titre = globalVariable.getTitre();
-        final String datedebut = globalVariable.getDdebut();
-        final String datefin = globalVariable.getDfin();
+        final CharSequence datedebut = globalVariable.getdatedebut();
+        final CharSequence datefin = globalVariable.getdatefin();
         final String Nsalle = globalVariable.getNsalle();
         final int RQcode = globalVariable.getrequestcode();
         final int REScode = globalVariable.getresultcode();
@@ -752,10 +799,15 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         String nom_salle = tv_nom_salle.getText().toString();
         TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);
         String nom_materiel = tv_nom_materiel.getText().toString();
-        TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);
-        String qte_materiel = tv_qte_materiel.getText().toString();
+        //TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);
+        EditText et_qte_materiel = findViewById(R.id.et_qtemateriel);
+        String qte_materiel = et_qte_materiel.getText().toString();
         TextView et_start_date_time = findViewById(R.id.tv_start_date_time);
         TextView et_end_date_time = findViewById(R.id.tv_end_date_time);
+
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        dateTime = globalVariable.getdatetime();
+        endDateTime = globalVariable.getenddatetime();
 
         long startTime = dateTime.getTimeInMillis();
         long endTime = endDateTime.getTimeInMillis();
