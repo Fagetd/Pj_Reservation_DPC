@@ -89,14 +89,14 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         setContentView(R.layout.activity_events);
         sqLiteHelperSalle = new SQLiteHelperSalle(this);
         sqLiteHelperMateriel = new SQLiteHelperMateriel(this);
-        query_account = findViewById(R.id.bt_query_account);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
-
+        query_account = findViewById(R.id.bt_query_account);
         et_titre  = (EditText) findViewById(R.id.et_titre);
         tv_date   = (TextView) findViewById(R.id.tv_start_date_time);
         tv_date2  = (TextView) findViewById(R.id.tv_end_date_time);
@@ -196,7 +196,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         if(a==true)
         {
             AfficherNomSalle();
-
         }
         else if(a==false)
         {
@@ -243,7 +242,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             dateTime.set(Calendar.MONTH, dpd_datedebut_monthOfYear);
             dateTime.set(Calendar.DAY_OF_MONTH, dpd_datedebut_dayOfMonth);
 
-
             final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
             globalVariable.setdpd_datedebut_view(dpdebut_view);
             globalVariable.setdpd_datedebut_year(dpd_datedebut_year);
@@ -263,11 +261,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             dpd_datefin_year = year;
             dpd_datefin_monthOfYear = monthOfYear;
             dpd_datefin_dayOfMonth = dayOfMonth;
-
             endDateTime.set(Calendar.YEAR, dpd_datefin_year);
             endDateTime.set(Calendar.MONTH, dpd_datefin_monthOfYear);
             endDateTime.set(Calendar.DAY_OF_MONTH, dpd_datefin_dayOfMonth);
-
 
             final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
             globalVariable.setdpd_datefin_view(dpfin_view);
@@ -285,7 +281,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             tpdebut_view = view;
             dpd_timedebut_hourOfDay = hourOfDay;
             dpd_timedebut_minute = minute;
-
             dateTime.set(Calendar.HOUR_OF_DAY, dpd_timedebut_hourOfDay);
             dateTime.set(Calendar.MINUTE, dpd_timedebut_minute);
 
@@ -300,11 +295,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     TimePickerDialog.OnTimeSetListener tend = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
             tpfin_view = view;
             dpd_timefin_hourOfDay = hourOfDay;
             dpd_timefin_minute = minute;
-
             endDateTime.set(Calendar.HOUR_OF_DAY, dpd_timefin_hourOfDay);
             endDateTime.set(Calendar.MINUTE, dpd_timefin_minute);
 
@@ -350,7 +343,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // on met les infos dans la globalclass
+        // infos de connexion
         rqcode = requestCode;
         rescode = resultCode;
         Data = data;
@@ -358,7 +351,6 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         globalVariable.setrequestcode(rqcode);
         globalVariable.setResultcode(rescode);
         globalVariable.setData(Data);
-
 
         if (requestCode == SIGN_IN_CODE){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -396,9 +388,52 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
     private void updateUI(boolean isConnected){
         if (isConnected) {
             Button bt_query_calendar = findViewById(R.id.bt_query_calendar);
-            Button bt_query_account = findViewById(R.id.bt_query_account);
-            bt_query_calendar.setVisibility(View.VISIBLE);
             ImageView iv_pastille = findViewById(R.id.iv_pastille);
+            TextView targetCalendarId = findViewById(R.id.tv_calendar_id);                                              // id du calendrier
+            TextView tv_calendrier = findViewById(R.id.tv_adresse_calendrier);                                          // nom du calendrier
+            Button bt_query_event = findViewById(R.id.bt_query_event);                                                  // chercher un event
+            Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
+            Button bt_insert_event = findViewById(R.id.insert_event);                                                   // modifier un event
+            Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
+            EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
+            TextView tv_titre = findViewById(R.id.tv_titre);                                                            // titre de l'event
+            TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de start
+            TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
+            Button btn_datePicker = findViewById(R.id.btn_datePicker);                                                  // update date start
+            Button btn_datePicker2 = findViewById(R.id.btn_datePicker2);                                                // update time start
+            Button btn_timePicker = findViewById(R.id.btn_timePicker);                                                  // update date end
+            Button btn_timePicker2 = findViewById(R.id.btn_timePicker2);                                                // update time end
+            Button btn_display_salles = findViewById(R.id.btn_display_salles);                                          // choisir sa salle
+            TextView tv_nom_salle = findViewById(R.id.tv_nom_salle);                                                    // nom de la salle
+            TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);                                              // nom du materiel
+            EditText et_qtemateriel = findViewById(R.id.et_qtemateriel);                                                // qté materiel
+            TextView tv_message = findViewById(R.id.tv_message);                                                        // message
+            ImageView iv_1 = findViewById(R.id.imageView1);                                                             // image view 1
+            ImageView iv_2 = findViewById(R.id.imageView2);                                                             // image view 2
+            ImageView iv_3 = findViewById(R.id.imageView3);                                                             // image view 3
+            tv_calendrier.setVisibility(View.VISIBLE);
+            bt_query_event.setVisibility(View.VISIBLE);
+            bt_update_event.setVisibility(View.INVISIBLE);
+            btn_datePicker.setVisibility(View.VISIBLE);
+            btn_datePicker2.setVisibility(View.VISIBLE);
+            btn_timePicker.setVisibility(View.VISIBLE);
+            bt_insert_event.setVisibility(View.VISIBLE);
+            btn_timePicker2.setVisibility(View.VISIBLE);
+            btn_display_salles.setVisibility(View.VISIBLE);
+            et_titre.setVisibility(View.VISIBLE);
+            et_start_date_time.setVisibility(View.VISIBLE);
+            et_end_date_time.setVisibility(View.VISIBLE);
+            tv_nom_salle.setVisibility(View.VISIBLE);
+            tv_nom_materiel.setVisibility(View.VISIBLE);
+            btn_display_materiel.setVisibility(View.VISIBLE);
+            tv_titre.setVisibility(View.VISIBLE);
+            et_qtemateriel.setVisibility(View.VISIBLE);
+            tv_message.setVisibility(View.VISIBLE);
+            iv_1.setVisibility(View.VISIBLE);
+            iv_2.setVisibility(View.VISIBLE);
+            iv_3.setVisibility(View.VISIBLE);
+
+            bt_query_calendar.setVisibility(View.VISIBLE);
             iv_pastille.setVisibility(View.VISIBLE);
 
         }else{
@@ -486,18 +521,21 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                             TextView targetCalendarId = findViewById(R.id.tv_calendar_id);                                              // id du calendrier
                             TextView tv_calendrier = findViewById(R.id.tv_adresse_calendrier);                                          // nom du calendrier
                             Button bt_query_event = findViewById(R.id.bt_query_event);                                                  // chercher un event
-                            Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
                             Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
                             Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
                             EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
+                            TextView tv_titre = findViewById(R.id.tv_titre);                                                            // titre de l'event
                             TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de start
                             TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
                             Button btn_datePicker = findViewById(R.id.btn_datePicker);                                                  // update date start
                             Button btn_datePicker2 = findViewById(R.id.btn_datePicker2);                                                // update time start
                             Button btn_timePicker = findViewById(R.id.btn_timePicker);                                                  // update date end
                             Button btn_timePicker2 = findViewById(R.id.btn_timePicker2);                                                // update time end
-                            Button btn_display_salles= findViewById(R.id.btn_display_salles);                                           // choisir sa salle
-                            TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
+                            Button btn_display_salles = findViewById(R.id.btn_display_salles);                                          // choisir sa salle
+                            TextView tv_nom_salle = findViewById(R.id.tv_nom_salle);                                                    // nom de la salle
+                            TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);                                              // nom du materiel
+                            Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
+
 
 
                             targetCalendarId.setText(String.format("%s", calendarIdList.get(which)));
@@ -513,7 +551,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                             if (tv_calendrier !=null){
                                 tv_calendrier.setVisibility(View.VISIBLE);
                                 bt_query_event.setVisibility(View.VISIBLE);
-                                bt_insert_event.setVisibility(View.VISIBLE);
+
                                 bt_update_event.setVisibility(View.INVISIBLE);
                                 btn_datePicker.setVisibility(View.VISIBLE);
                                 btn_datePicker2.setVisibility(View.VISIBLE);
@@ -524,7 +562,12 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
                                 et_start_date_time.setVisibility(View.VISIBLE);
                                 et_end_date_time.setVisibility(View.VISIBLE);
                                 tv_nom_salle.setVisibility(View.VISIBLE);
-                                bt_query_calendar.setText("Changer de calendrier");
+                                tv_nom_materiel.setVisibility(View.VISIBLE);
+                                btn_display_materiel.setVisibility(View.VISIBLE);
+                                tv_titre.setVisibility(View.VISIBLE);
+
+
+
                             }
                         }
                     });
@@ -586,20 +629,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
         // si le calendrier est choisi
         if (tv_calendrier !=null){
-            tv_calendrier.setVisibility(View.VISIBLE);
-            bt_query_event.setVisibility(View.VISIBLE);
-            bt_insert_event.setVisibility(View.VISIBLE);
-            bt_update_event.setVisibility(View.INVISIBLE);
-            btn_datePicker.setVisibility(View.VISIBLE);
-            btn_datePicker2.setVisibility(View.VISIBLE);
-            btn_timePicker.setVisibility(View.VISIBLE);
-            btn_timePicker2.setVisibility(View.VISIBLE);
-            btn_display_salles.setVisibility(View.VISIBLE);
-            et_titre.setVisibility(View.VISIBLE);
-            et_start_date_time.setVisibility(View.VISIBLE);
-            et_end_date_time.setVisibility(View.VISIBLE);
-            tv_nom_salle.setVisibility(View.VISIBLE);
-            bt_query_calendar.setText("Changer de calendrier");
+
             }
     }
 
@@ -726,6 +756,9 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             while (cursor.moveToNext());
             cursor.close();
         }
+
+
+
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         final String titre = globalVariable.getTitre();
@@ -766,6 +799,7 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
             cursor2.close();
 
         }
+
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         final String titre = globalVariable.getTitre();
@@ -799,26 +833,33 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
         String nom_salle = tv_nom_salle.getText().toString();
         TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);
         String nom_materiel = tv_nom_materiel.getText().toString();
-        //TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);
         EditText et_qte_materiel = findViewById(R.id.et_qtemateriel);
         String qte_materiel = et_qte_materiel.getText().toString();
         TextView et_start_date_time = findViewById(R.id.tv_start_date_time);
         TextView et_end_date_time = findViewById(R.id.tv_end_date_time);
+        TextView tv_calendrier = findViewById(R.id.tv_adresse_calendrier);
+
+
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
         dateTime = globalVariable.getdatetime();
         endDateTime = globalVariable.getenddatetime();
-
+        if(tv_calendrier.getText()==""){
+            tv_calendrier.setError("Aucun calendrier n'a été choisi");
+            return;
+        }
         long startTime = dateTime.getTimeInMillis();
         long endTime = endDateTime.getTimeInMillis();
+
 
         long calendarId = Long.parseLong(targetCalendarId);
 
         long StartTimeMillis = startTime ; // Début de l'évenement, System.currentTimeMillis()
         long DureeTimeMillis = endTime - StartTimeMillis;
-        if ((DureeTimeMillis <= 0)||(startTime==endTime)){
+        if ((DureeTimeMillis <= 0)||(startTime==endTime)||(tv_calendrier.getText()==null)){
             et_end_date_time.setError("");
             et_start_date_time.setError("");
+
             return;
         }else{
             et_end_date_time.setError(null);
@@ -909,25 +950,25 @@ public class EventsActivity extends AppCompatActivity implements GoogleApiClient
 
     public void clear(View view) {
 
-        Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
-        EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
-        TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de l'event
-        Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
-        Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
-        TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
-        TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
-        TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);                                              // nom du materiel
-        TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);                                              // quantité du matériel
-
-        bt_insert_event.setVisibility(View.VISIBLE);
-        bt_update_event.setVisibility(View.INVISIBLE);
-        bt_delete_event.setVisibility(View.INVISIBLE);
-        et_titre.setText("");
-        et_start_date_time.setText("");
-        tv_nom_salle.setText("");
-        et_end_date_time.setText("");
-        tv_nom_materiel.setText("");
-        tv_qte_materiel.setText("");
+//        Button bt_insert_event = findViewById(R.id.insert_event);                                                   // inserer un event
+//        EditText et_titre = findViewById(R.id.et_titre);                                                            // titre de l'event
+//        TextView et_start_date_time = findViewById(R.id.tv_start_date_time);                                        // date et heure de l'event
+//        Button bt_update_event = findViewById(R.id.bt_update_event);                                                // modifier un event
+//        Button bt_delete_event = findViewById(R.id.bt_delete_event);                                                // supprimer un event
+//        TextView et_end_date_time = findViewById(R.id.tv_end_date_time);                                            // date et heure de end
+//        TextView tv_nom_salle= findViewById(R.id.tv_nom_salle);                                                     // nom de la salle
+//        TextView tv_nom_materiel = findViewById(R.id.tv_nom_materiel);                                              // nom du materiel
+//        TextView tv_qte_materiel = findViewById(R.id.tv_qte_materiel);                                              // quantité du matériel
+//
+//        bt_insert_event.setVisibility(View.VISIBLE);
+//        bt_update_event.setVisibility(View.INVISIBLE);
+//        bt_delete_event.setVisibility(View.INVISIBLE);
+//        et_titre.setText("");
+//        et_start_date_time.setText("");
+//        tv_nom_salle.setText("");
+//        et_end_date_time.setText("");
+//        tv_nom_materiel.setText("");
+//        tv_qte_materiel.setText("");
     }
 
 

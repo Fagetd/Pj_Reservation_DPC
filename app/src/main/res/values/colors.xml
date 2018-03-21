@@ -2,10 +2,12 @@
 <resources>
     <color name="rouge">#c43f21</color>
     <color name="violet">#7762a3</color>
-    <color name="orange">#f0a10e</color>
+    <color name="orange">#f7743b</color>
     <color name="vert">#becc52</color>
     <color name="grisFonce">#D8D8D8</color>
     <color name="gris">#f2f2f2</color>
     <color name="blanc">#ffffff</color>
     <color name="black">#343536</color>
+    <color name="rose">#f5276f</color>
+    <color name="bleu">#61b8b5</color>
 </resources>
