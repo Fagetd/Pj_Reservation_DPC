@@ -16,12 +16,12 @@ import android.widget.Toast;
 public class EditSingleRecordMaterielActivity extends AppCompatActivity {
     EditText libelle, qte;
     TextView titre;
-    Button update,retour;
+    Button update, retour;
     SQLiteDatabase sqLiteDatabase;
     SQLiteHelperMateriel sqLiteHelperMateriel;
     Cursor cursor;
     String IDholder;
-    String SQLiteDataBaseQueryHolder ;
+    String SQLiteDataBaseQueryHolder;
     SQLiteDatabase sqLiteDatabaseObj;
 
     @Override
@@ -48,14 +48,14 @@ public class EditSingleRecordMaterielActivity extends AppCompatActivity {
                 OpenSQLiteDataBase();
 
                 SQLiteDataBaseQueryHolder = "UPDATE " + SQLiteHelperMateriel.TABLE_NAME + " SET "
-                        +SQLiteHelperMateriel.Table_Column_1_Libelle+" = '"+GetLibelle+"' , "
-                        +SQLiteHelperMateriel.Table_Column_2_Qte+" = '"+GetQte+"' WHERE id = " + IDholder + "";
+                        + SQLiteHelperMateriel.Table_Column_1_Libelle + " = '" + GetLibelle + "' , "
+                        + SQLiteHelperMateriel.Table_Column_2_Qte + " = '" + GetQte + "' WHERE id = " + IDholder + "";
 
                 sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
 
                 sqLiteDatabase.close();
 
-                Toast.makeText(EditSingleRecordMaterielActivity.this,"La modification a été faite", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditSingleRecordMaterielActivity.this, "La modification a été faite", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(EditSingleRecordMaterielActivity.this, DisplaySQLiteMaterielActivity.class);
                 startActivity(intent);
             }
@@ -101,7 +101,7 @@ public class EditSingleRecordMaterielActivity extends AppCompatActivity {
         }
     }
 
-    public void OpenSQLiteDataBase(){
+    public void OpenSQLiteDataBase() {
 
         sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperMateriel.DATABASE_NAME, Context.MODE_PRIVATE, null);
 

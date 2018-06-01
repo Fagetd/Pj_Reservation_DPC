@@ -13,9 +13,9 @@ public class SQLiteHelperMateriel extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, 4);
     }
 
-    static String DATABASE_NAME="database";
+    static String DATABASE_NAME = "database";
 
-    public static final String TABLE_NAME="LeMateriel";
+    public static final String TABLE_NAME = "LeMateriel";
 
     public static final String Table_Column_ID = "id";
     public static final String Table_Column_1_Libelle = "libelle";
@@ -41,6 +41,7 @@ public class SQLiteHelperMateriel extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=1;");
         }
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);

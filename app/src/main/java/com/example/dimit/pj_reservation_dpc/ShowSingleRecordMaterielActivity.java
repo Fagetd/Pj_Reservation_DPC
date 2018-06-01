@@ -19,7 +19,7 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
     Cursor cursor;
     Button Delete, Edit, retour;
     SQLiteDatabase sqLiteDatabaseObj;
-    String SQLiteDataBaseQueryHolder ;
+    String SQLiteDataBaseQueryHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,9 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
         qte = (TextView) findViewById(R.id.textViewQte);
 
 
-        Delete = (Button)findViewById(R.id.buttonDelete);
-        Edit = (Button)findViewById(R.id.buttonEdit);
-        retour = (Button)findViewById(R.id.buttonRetour);
+        Delete = (Button) findViewById(R.id.buttonDelete);
+        Edit = (Button) findViewById(R.id.buttonEdit);
+        retour = (Button) findViewById(R.id.buttonRetour);
 
         sqLiteHelperMateriel = new SQLiteHelperMateriel(this);
 
@@ -43,7 +43,7 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
 
                 OpenSQLiteDataBase();
 
-                SQLiteDataBaseQueryHolder = "DELETE FROM "+SQLiteHelperMateriel.TABLE_NAME+" WHERE id = "+IDholder+"";
+                SQLiteDataBaseQueryHolder = "DELETE FROM " + SQLiteHelperMateriel.TABLE_NAME + " WHERE id = " + IDholder + "";
 
                 sqLiteDatabase.execSQL(SQLiteDataBaseQueryHolder);
 
@@ -58,7 +58,7 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),EditSingleRecordMaterielActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EditSingleRecordMaterielActivity.class);
 
                 intent.putExtra("EditID", IDholder);
 
@@ -70,7 +70,7 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),DisplaySQLiteMaterielActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DisplaySQLiteMaterielActivity.class);
                 startActivity(intent);
 
             }
@@ -109,7 +109,7 @@ public class ShowSingleRecordMaterielActivity extends AppCompatActivity {
         }
     }
 
-    public void OpenSQLiteDataBase(){
+    public void OpenSQLiteDataBase() {
 
         sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperMateriel.DATABASE_NAME, Context.MODE_PRIVATE, null);
 

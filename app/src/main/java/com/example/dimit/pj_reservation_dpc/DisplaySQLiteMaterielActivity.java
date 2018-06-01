@@ -17,7 +17,7 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
     SQLiteHelperMateriel sqLiteHelperMateriel;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
-    ListAdapterMateriel listAdapterMateriel ;
+    ListAdapterMateriel listAdapterMateriel;
     ListView LISTVIEW;
     Button retour;
 
@@ -27,7 +27,7 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
 
 
     ArrayList<String> ListViewClickItemArray = new ArrayList<String>();
-    String TempHolder ;
+    String TempHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,15 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
         QTE_Array = new ArrayList<String>();
 
 
-
         sqLiteHelperMateriel = new SQLiteHelperMateriel(this);
 
-        LISTVIEW.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        LISTVIEW.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(getApplicationContext(),ShowSingleRecordMaterielActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ShowSingleRecordMaterielActivity.class);
 
                 intent.putExtra("ListViewClickedItemValue", ListViewClickItemArray.get(position).toString());
 
@@ -63,18 +61,17 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MaterielActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MaterielActivity.class);
                 startActivity(intent);
             }
         });
-
 
 
     }
 
     @Override
     protected void onResume() {
-        ShowSQLiteDBdata() ;
+        ShowSQLiteDBdata();
         super.onResume();
     }
 
@@ -82,7 +79,7 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
 
         sqLiteDatabase = sqLiteHelperMateriel.getWritableDatabase();
 
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+SQLiteHelperMateriel.TABLE_NAME+"", null);
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelperMateriel.TABLE_NAME + "", null);
 
         ID_Array.clear();
         LIBELLE_Array.clear();
@@ -93,11 +90,10 @@ public class DisplaySQLiteMaterielActivity extends AppCompatActivity {
             do {
 
                 ID_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperMateriel.Table_Column_ID)));
-                //Inserting Column ID into Array to Use at ListView Click Listener Method.
+                //Insertion de l'ID de colonne dans le tableau. A utiliser lors de la méthode Click Listener dans ListView.
                 ListViewClickItemArray.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperMateriel.Table_Column_ID)));
                 LIBELLE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperMateriel.Table_Column_1_Libelle)));
                 QTE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperMateriel.Table_Column_2_Qte)));
-
 
 
             } while (cursor.moveToNext());

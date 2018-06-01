@@ -3,6 +3,7 @@ package com.example.dimit.pj_reservation_dpc;
 /**
  * Created by dimit on 28/02/2018.
  */
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,17 +13,16 @@ public class SQLiteHelperSalle extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, 4);
     }
 
-    static String DATABASE_NAME="database";
+    static String DATABASE_NAME = "database";
 
-    public static final String TABLE_NAME="LesSalles";
-
+    public static final String TABLE_NAME = "LesSalles";
     public static final String Table_Column_ID = "id";
     public static final String Table_Column_1_Name = "name";
     public static final String Table_Column_2_Capacite = "capacite";
     public static final String Table_Column_3_Description = "description";
     public static final String Table_Column_4_Adresse = "adresse";
     public static final String Table_Column_5_CodePostal = "codepostal";
-    public static final String Table_Column_6_Ville= "ville";
+    public static final String Table_Column_6_Ville = "ville";
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_NAME + "(" + Table_Column_ID + " integer primary key autoincrement, "
@@ -47,6 +47,7 @@ public class SQLiteHelperSalle extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=1;");
         }
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
@@ -57,7 +58,7 @@ public class SQLiteHelperSalle extends SQLiteOpenHelper {
         //ajouter une colonne
         //if (oldVersion < 1) {
         //    db.execSQL(DATABASE_ALTER_1);
-       // }
+        // }
         //if (oldVersion < 2) {
         //    db.execSQL(DATABASE_ALTER_2);
         // }

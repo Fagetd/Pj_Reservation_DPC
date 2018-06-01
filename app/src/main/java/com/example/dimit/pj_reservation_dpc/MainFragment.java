@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
         bt_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = (new Intent(getActivity(),EventsActivity.class));
+                Intent i = (new Intent(getActivity(), EventsActivity.class));
                 startActivity(i);
             }
         });

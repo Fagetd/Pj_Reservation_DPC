@@ -16,11 +16,15 @@ public class UserInformation {
     public String societe;
     public String mail;
 
-    public UserInformation(){
+    public UserInformation() {
 
     }
 
-    public UserInformation(String nom, String prenom, String adresse1, String adresse2, String lieuDit, String codePostal, String ville, String numTelephone, String societe, String mail) {
+    public UserInformation(String nom, String prenom,
+                           String adresse1, String adresse2,
+                           String lieuDit, String codePostal,
+                           String ville, String numTelephone,
+                           String societe, String mail) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse1 = adresse1;

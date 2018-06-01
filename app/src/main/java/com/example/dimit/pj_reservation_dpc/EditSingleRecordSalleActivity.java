@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 public class EditSingleRecordSalleActivity extends AppCompatActivity {
 
-    EditText name, capacite,description,adresse,codepostal,ville;
+    EditText name, capacite, description, adresse, codepostal, ville;
     TextView titre;
-    Button update,retour;
+    Button update, retour;
     SQLiteDatabase sqLiteDatabase;
     SQLiteHelperSalle sqLiteHelperSalle;
     Cursor cursor;
     String IDholder;
-    String SQLiteDataBaseQueryHolder ;
+    String SQLiteDataBaseQueryHolder;
     SQLiteDatabase sqLiteDatabaseObj;
 
     @Override
@@ -55,18 +55,18 @@ public class EditSingleRecordSalleActivity extends AppCompatActivity {
                 OpenSQLiteDataBase();
 
                 SQLiteDataBaseQueryHolder = "UPDATE " + SQLiteHelperSalle.TABLE_NAME + " SET "
-                        + SQLiteHelperSalle.Table_Column_1_Name+" = '"+GetName+"' , "
-                        + SQLiteHelperSalle.Table_Column_2_Capacite+" = '"+GetCapacite+"' , "
-                        + SQLiteHelperSalle.Table_Column_3_Description+" = '"+GetDescription+"' , "
-                        + SQLiteHelperSalle.Table_Column_4_Adresse+" = '"+GetAdresse+"' , "
-                        + SQLiteHelperSalle.Table_Column_5_CodePostal+" = '"+GetCodepostal+"' , "
-                        + SQLiteHelperSalle.Table_Column_6_Ville+" = '"+GetVille+"' WHERE id = " + IDholder + "";
+                        + SQLiteHelperSalle.Table_Column_1_Name + " = '" + GetName + "' , "
+                        + SQLiteHelperSalle.Table_Column_2_Capacite + " = '" + GetCapacite + "' , "
+                        + SQLiteHelperSalle.Table_Column_3_Description + " = '" + GetDescription + "' , "
+                        + SQLiteHelperSalle.Table_Column_4_Adresse + " = '" + GetAdresse + "' , "
+                        + SQLiteHelperSalle.Table_Column_5_CodePostal + " = '" + GetCodepostal + "' , "
+                        + SQLiteHelperSalle.Table_Column_6_Ville + " = '" + GetVille + "' WHERE id = " + IDholder + "";
 
                 sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
 
                 sqLiteDatabase.close();
 
-                Toast.makeText(EditSingleRecordSalleActivity.this,"La modification a été faite", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditSingleRecordSalleActivity.this, "La modification a été faite", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(EditSingleRecordSalleActivity.this, DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
             }
@@ -115,7 +115,7 @@ public class EditSingleRecordSalleActivity extends AppCompatActivity {
         }
     }
 
-    public void OpenSQLiteDataBase(){
+    public void OpenSQLiteDataBase() {
 
         sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperSalle.DATABASE_NAME, Context.MODE_PRIVATE, null);
 

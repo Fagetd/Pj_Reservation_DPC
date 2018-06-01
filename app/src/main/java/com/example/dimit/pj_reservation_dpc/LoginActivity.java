@@ -27,15 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
-public class LoginActivity extends AppCompatActivity implements  View.OnClickListener {
-      private Button bt_connexion;
-      private EditText ed_login;
-      private EditText ed_mdp;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button bt_connexion;
+    private EditText ed_login;
+    private EditText ed_mdp;
 
-      private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-      private FirebaseAuth firebaseAuth;
-
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
         bt_connexion.setOnClickListener(this);
         findViewById(R.id.bt_inscription).setOnClickListener(this);
-        //startActivity(new Intent(getApplicationContext(),EventsActivity.class));
     }
 
 
@@ -61,37 +59,38 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
         String email = ed_login.getText().toString().trim();
         String mdp = ed_mdp.getText().toString().trim();
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             ed_login.setError("Veuillez rentrer votre login");
             ed_login.requestFocus();
             return;
         }
-        if (mdp.isEmpty()){
-           ed_mdp.setError("Veuillez rentrer votre mot de passe");
-           ed_mdp.requestFocus();
+        if (mdp.isEmpty()) {
+            ed_mdp.setError("Veuillez rentrer votre mot de passe");
+            ed_mdp.requestFocus();
             return;
         }
 
 
         progressDialog.setMessage("Connexion en cours ...");
         progressDialog.show();
-        firebaseAuth.signInWithEmailAndPassword(email,mdp).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, mdp).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
-                if (task.isSuccessful()){
-                        finish();
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                if (task.isSuccessful()) {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
-           }
+            }
         });
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_inscription:
-                startActivity(new Intent(this,SignUpActivity.class));
+                startActivity(new Intent(this, SignUpActivity.class));
                 break;
             case R.id.bt_connexion:
                 userLogin();

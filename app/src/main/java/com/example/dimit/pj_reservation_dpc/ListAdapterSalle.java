@@ -3,6 +3,7 @@ package com.example.dimit.pj_reservation_dpc;
 /**
  * Created by dimit on 28/02/2018.
  */
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,7 @@ public class ListAdapterSalle extends BaseAdapter {
             ArrayList<String> adresse,
             ArrayList<String> codepostal,
             ArrayList<String> ville
-    )
-    {
+    ) {
 
         this.context = context2;
         this.ID = id;

@@ -321,11 +321,11 @@
         android:id="@+id/tv_mdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mot de passe"
+        android:text="Mot de passe (Au moins 6 Char)"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.793" />

@@ -1,6 +1,9 @@
 package com.example.dimit.pj_reservation_dpc;
+
 import android.support.v7.app.AppCompatActivity;
+
 import java.util.ArrayList;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -28,7 +31,6 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
     ArrayList<String> VILLE_Array;
 
     ArrayList<String> ListViewClickItemArray = new ArrayList<String>();
-    String TempHolder ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +51,13 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
 
         sqLiteHelperSalle = new SQLiteHelperSalle(this);
 
-        LISTVIEW.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        LISTVIEW.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(getApplicationContext(),ShowSingleRecordSalleActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ShowSingleRecordSalleActivity.class);
 
                 intent.putExtra("ListViewClickedItemValue", ListViewClickItemArray.get(position).toString());
 
@@ -67,18 +68,17 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SalleActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SalleActivity.class);
                 startActivity(intent);
             }
         });
-
 
 
     }
 
     @Override
     protected void onResume() {
-        ShowSQLiteDBdata() ;
+        ShowSQLiteDBdata();
         super.onResume();
     }
 
@@ -86,7 +86,7 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
 
         sqLiteDatabase = sqLiteHelperSalle.getWritableDatabase();
 
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ SQLiteHelperSalle.TABLE_NAME+"", null);
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + SQLiteHelperSalle.TABLE_NAME + "", null);
 
         ID_Array.clear();
         NAME_Array.clear();
@@ -100,7 +100,7 @@ public class DisplaySQLiteSalleActivity extends AppCompatActivity {
             do {
 
                 ID_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_ID)));
-                //Inserting Column ID into Array to Use at ListView Click Listener Method.
+                //Insertion de l'ID de colonne dans le tableau. A utiliser lors de la méthode Click Listener dans ListView.
                 ListViewClickItemArray.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_ID)));
                 NAME_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_1_Name)));
                 CAPACITE_Array.add(cursor.getString(cursor.getColumnIndex(SQLiteHelperSalle.Table_Column_2_Capacite)));

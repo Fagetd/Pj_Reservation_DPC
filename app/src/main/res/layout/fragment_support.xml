@@ -230,7 +230,6 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:paddingBottom="8dp"
-            android:src="@drawable/support"
             app:border_color="@color/vert"
             app:border_width="5dp"
             app:layout_constraintBottom_toBottomOf="parent"

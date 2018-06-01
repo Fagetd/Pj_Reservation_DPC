@@ -21,15 +21,13 @@ public class ListAdapterMateriel extends BaseAdapter {
     ArrayList<String> Qte;
 
 
-
     public ListAdapterMateriel(
             Context context2,
             ArrayList<String> id,
             ArrayList<String> libelle,
             ArrayList<String> qte
 
-    )
-    {
+    ) {
         this.context = context2;
         this.ID = id;
         this.Libelle = libelle;

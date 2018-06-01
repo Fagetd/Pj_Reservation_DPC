@@ -33,7 +33,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     NavigationView navigationView = null;
-    Toolbar toolbar= null;
+    Toolbar toolbar = null;
     private TextView emailTextView;
     private GoogleApiClient googleApiClient;
     private String email;
@@ -54,33 +53,27 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-
         MainFragment fragment = new MainFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment,"MainFragment");
+        transaction.replace(R.id.fragment_container, fragment, "MainFragment");
         transaction.commit();
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getInstance() == null){
+        if (firebaseAuth.getInstance() == null) {
             finish();
-            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
 
-        emailTextView = (TextView)findViewById(R.id.emailuser);
+        emailTextView = (TextView) findViewById(R.id.emailuser);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         emailTextView.setText(user.getEmail());
 
 
-
-
-
-
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,12 +84,6 @@ public class MainActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-
-
-
-
-
 
 
     @Override
@@ -135,55 +122,32 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_calendrier) {
 
-            //CalendrierFragment fragment = new CalendrierFragment();
-            //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            //transaction.replace(R.id.fragment_container,fragment,"CalendrierFragment");
-            //transaction.commit();
-            Intent intent = new Intent(this,EventsActivity.class);
+            Intent intent = new Intent(this, EventsActivity.class);
             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            //Intent intent = new Intent(this,CalendrierActivity.class);
-            //intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            //startActivity(intent);
+
 
         } else if (id == R.id.nav_salles) {
 
-            //SallesFragment fragment = new SallesFragment();
-            //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            //transaction.replace(R.id.fragment_container,fragment,"SallesFragment");
-            //transaction.commit();
-            Intent intent = new Intent(this,SalleActivity.class);
+            Intent intent = new Intent(this, SalleActivity.class);
             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            //CalendrierFragment fragment = new CalendrierFragment();
-            //FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            //transaction.replace(R.id.fragment_container,fragment,"CalendrierFragment");
-            //transaction.commit();
 
         } else if (id == R.id.nav_materiel) {
-            Intent intent = new Intent(this,MaterielActivity.class);
+            Intent intent = new Intent(this, MaterielActivity.class);
             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
         } else if (id == R.id.nav_support) {
             SupportFragment fragment = new SupportFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container,fragment,"SupportFragment");
+            transaction.replace(R.id.fragment_container, fragment, "SupportFragment");
             transaction.commit();
 
-
-            //SupportFragment fragment = new SupportFragment();
-            //android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            //fragmentTransaction.replace(R.id.fragment_container,fragment);
-            //fragmentTransaction.commit();
-            //Toast.makeText(this, "Support", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_catalogue) {
 
-//            ParametresFragment fragment = new ParametresFragment();
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container,fragment,"ParametresFragment");
-//            transaction.commit();
-            Intent intent = new Intent(this,CatalogueActivity.class);
+
+            Intent intent = new Intent(this, CatalogueActivity.class);
             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
@@ -198,20 +162,18 @@ public class MainActivity extends AppCompatActivity
 //            if (googleApiClient.isConnected()){
 //
 //            }
-                firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(this, LoginActivity.class));
+//      }
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
 
-        //    }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
 
 
     @Override

@@ -1,25 +1,25 @@
 package com.example.dimit.pj_reservation_dpc;
 
 import android.content.Context;
-        import android.content.Intent;
-        import android.database.Cursor;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
     String IDholder;
-    TextView id, name, capacite, description,adresse,codepostal,ville;
+    TextView id, name, capacite, description, adresse, codepostal, ville;
     SQLiteDatabase sqLiteDatabase;
     SQLiteHelperSalle sqLiteHelperSalle;
     Cursor cursor;
     Button Delete, Edit, retour;
     SQLiteDatabase sqLiteDatabaseObj;
-    String SQLiteDataBaseQueryHolder ;
+    String SQLiteDataBaseQueryHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
         codepostal = (TextView) findViewById(R.id.textViewCodepostal);
         ville = (TextView) findViewById(R.id.textViewVille);
 
-        Delete = (Button)findViewById(R.id.buttonDelete);
-        Edit = (Button)findViewById(R.id.buttonEdit);
-        retour = (Button)findViewById(R.id.buttonRetour);
+        Delete = (Button) findViewById(R.id.buttonDelete);
+        Edit = (Button) findViewById(R.id.buttonEdit);
+        retour = (Button) findViewById(R.id.buttonRetour);
 
         sqLiteHelperSalle = new SQLiteHelperSalle(this);
 
@@ -46,7 +46,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
 
                 OpenSQLiteDataBase();
 
-                SQLiteDataBaseQueryHolder = "DELETE FROM "+ SQLiteHelperSalle.TABLE_NAME+" WHERE id = "+IDholder+"";
+                SQLiteDataBaseQueryHolder = "DELETE FROM " + SQLiteHelperSalle.TABLE_NAME + " WHERE id = " + IDholder + "";
 
                 sqLiteDatabase.execSQL(SQLiteDataBaseQueryHolder);
 
@@ -63,7 +63,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),EditSingleRecordSalleActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EditSingleRecordSalleActivity.class);
 
                 intent.putExtra("EditID", IDholder);
 
@@ -75,7 +75,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(),DisplaySQLiteSalleActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DisplaySQLiteSalleActivity.class);
                 startActivity(intent);
 
             }
@@ -117,7 +117,7 @@ public class ShowSingleRecordSalleActivity extends AppCompatActivity {
         }
     }
 
-    public void OpenSQLiteDataBase(){
+    public void OpenSQLiteDataBase() {
 
         sqLiteDatabaseObj = openOrCreateDatabase(SQLiteHelperSalle.DATABASE_NAME, Context.MODE_PRIVATE, null);
 
